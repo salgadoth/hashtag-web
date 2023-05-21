@@ -21,7 +21,7 @@ const GlobalContext = createContext<ContextProps>({
     setExpiresAt: (): string => '' 
 })
 
-export const GlobalContextProvider = ({ children }) => {
+export const GlobalContextProvider = ({ children } : any) => {
     const [token, setToken] = useState('');
     const [expiresAt, setExpiresAt] = useState('');
     
