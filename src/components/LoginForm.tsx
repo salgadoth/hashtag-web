@@ -3,9 +3,11 @@
 import { useGlobalContext } from "@/app/Context/token";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginForm(props: any){
-    const {setToken, setExpiresAt} = useGlobalContext()
+    const {token, setToken, setExpiresAt} = useGlobalContext()
+    const router = useRouter()
 
     const handleSubmit = async (event : any) => {
         event.preventDefault()
@@ -22,7 +24,6 @@ export default function LoginForm(props: any){
             }).then(function(response){
                 setToken(response.data.token)
                 setExpiresAt(response.data.expires_at)
-                // refreshData()
             }).catch(function(error){
                 if(error.response){
                     return alert(error.response.data.error)
@@ -31,16 +32,11 @@ export default function LoginForm(props: any){
     
     }
 
-    // const router = useRouter()
-    
-    // const refreshData = () => {
-    //     router.replace('/painel');
-    // }
-
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>){
-        // console.log(event.target.name)
-        // console.log(event.target.value)
-    }
+    useEffect(() => {
+        if(token){
+            router.replace('/painel')
+        }
+    })
     
     return(
         <div>
@@ -48,11 +44,11 @@ export default function LoginForm(props: any){
             <form onSubmit={handleSubmit} className="w-1/4 bg-gray-200 p-5 m-auto">
                 <div className="flex flex-col">
                     <label htmlFor="email">Email:</label>
-                    <input className="rounded-md" type="email" name="email" id="email" onChange={handleChange}/>
+                    <input className="rounded-md" type="email" name="email" id="email" />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="email">Senha:</label>
-                    <input className="rounded-md" type="password" name="pwd" id="pwd" onChange={handleChange}/>
+                    <input className="rounded-md" type="password" name="pwd" id="pwd" />
                 </div>
                 <div className="flex justify-center pt-5"><button type="submit" className="bg-blue-500 font-bold p-3 rounded-full hover:bg-blue-700 hover:text-white">LOGIN</button></div>
             </form>

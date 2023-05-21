@@ -6,7 +6,7 @@ import { api } from "@/lib/api";
 import { useEffect, useState } from "react";
 import PainelControle from "@/components/PainelControle";
 import FilterData from "@/components/FilterData";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface Response{
   data : Callback[]
@@ -32,6 +32,7 @@ export default function painel() {
   const {token, setToken, expiresAt, setExpiresAt} = useGlobalContext()
   const [data, setData] = useState<Callback[]>([])
   const [param, setParam] = useState('')
+  const router = useRouter()
   
   function parseJwt(token: string) {
     if (!token) { return; }
@@ -53,16 +54,15 @@ export default function painel() {
     })
   }
 
-  // const router = useRouter()
-  // const refreshData = () => {
-  //     router.replace('/');
-  // }
-
   useEffect(()=>{
-    if(token && Object.keys(data).length < 1){
-      getData().then((data : Callback[]) => {
-        setData(data)
-      })
+    if(!token){
+      router.replace('/')
+    } else {
+      if(Object.keys(data).length < 1){
+        getData().then((data : Callback[]) => {
+          setData(data)
+        })
+      }
     }
   }, [])
   
@@ -106,14 +106,5 @@ export default function painel() {
         </Page>
       </>
     )
-  } else {
-    return (
-      <>
-        <Page>
-          <h1>Voce precisa estar logado para acessar essa pagina.</h1>
-          {/* {refreshData()} */}
-        </Page>
-      </>
-    )
-  }
+  } 
 }
