@@ -1,7 +1,6 @@
 'use client'
 
 import { useGlobalContext } from "@/app/Context/token";
-import { deleteCookie, getCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
