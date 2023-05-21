@@ -22,7 +22,7 @@ export default function LoginForm(props: any){
             }).then(function(response){
                 setToken(response.data.token)
                 setExpiresAt(response.data.expires_at)
-                refreshData()
+                // refreshData()
             }).catch(function(error){
                 if(error.response){
                     return alert(error.response.data.error)
@@ -31,10 +31,11 @@ export default function LoginForm(props: any){
     
     }
 
-    const router = useRouter()
-    const refreshData = () => {
-        router.replace('/painel');
-    }
+    // const router = useRouter()
+    
+    // const refreshData = () => {
+    //     router.replace('/painel');
+    // }
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>){
         // console.log(event.target.name)

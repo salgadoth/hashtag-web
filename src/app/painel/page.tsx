@@ -4,10 +4,9 @@ import Page from "@/components/Page";
 import { useGlobalContext } from "../Context/token";
 import { api } from "@/lib/api";
 import { useEffect, useState } from "react";
-import { Result } from "postcss";
 import PainelControle from "@/components/PainelControle";
 import FilterData from "@/components/FilterData";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 interface Response{
   data : Callback[]
@@ -54,10 +53,10 @@ export default function painel() {
     })
   }
 
-  const router = useRouter()
-  const refreshData = () => {
-      router.replace('/');
-  }
+  // const router = useRouter()
+  // const refreshData = () => {
+  //     router.replace('/');
+  // }
 
   useEffect(()=>{
     if(token && Object.keys(data).length < 1){
@@ -112,7 +111,7 @@ export default function painel() {
       <>
         <Page>
           <h1>Voce precisa estar logado para acessar essa pagina.</h1>
-          {refreshData()}
+          {/* {refreshData()} */}
         </Page>
       </>
     )
